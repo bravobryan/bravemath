@@ -31,7 +31,9 @@ class linear_regression:
         predict = [
             cls.intercept + cls.coef*exp for exp in x_var
         ]
-        resid = [act - pred for act in y_var for pred in predict]
+        resid = [
+            act - pred for act in y_var for pred in predict
+        ]
 
         cls.variables = {"explanatory":x_var, "response":y_var, "resid": resid}
         return cls
@@ -39,9 +41,7 @@ class linear_regression:
     @classmethod
     def visualize(cls):
         """Generates a scatterplot with the linear regression line."""
-        if cls.coef == None:
-            "Please fit linear_regression model, then try again."
-        else:
+        try:
             import matplotlib.pyplot as plt
 
             plt.scatter(cls.variables['explanatory'], cls.variables['response'], alpha=0.5)
@@ -49,7 +49,9 @@ class linear_regression:
             plt.title(f"Linear Regression Model \n{cls.model}")
             plt.axis("equal")
             plt.grid()
-            plt.show()
+            return plt.show()
+        except AttributeError:
+            print("*****Please fit linear_regression model, then Try again!*****")
 
 
 if __name__ == '__main__':
@@ -60,11 +62,12 @@ if __name__ == '__main__':
         [[5.96202397, -2.85602287], [-2.85602287, 3.47613949]],
         500).T
 
-    # -- Code to test if my linear regression algorithm is correct using SciKit Learn's LinearRegression Object class.
+    # -- Code to test if my linear regression algorithm is correct using SciKit-Learn's LinearRegression Object class.
     mylinreg = linear_regression().fit(x, y)
-
     x = np.reshape(x, (-1, 1))
     sklinreg = LinearRegression().fit(x, y)
     print(f"My regression model:            {mylinreg.model}")
     print(f"Sklearn's regression model:     y_hat = {sklinreg.intercept_:.2f} + {sklinreg.coef_[0]:.2f}x")
+
+    # Test `.viszualize()` method.
     mylinreg.visualize()
