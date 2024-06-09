@@ -11,7 +11,7 @@ class linear_regression:
     ):
         """ Instantiates the linear regression object.
         ***** Note: Please don't use this for analysis. *****
-        This object class was created to help solidify my understanding in creating a least squares
+        This object class was created to help solidify my understanding in creating the least squares
         linear regression model. There are better library packages out there that provide better
         analysis tools.
         """
@@ -32,7 +32,7 @@ class linear_regression:
         cls.intercept = float(np.mean(y_var) - (cls.coef * np.mean(x_var)))
         cls.model = f"y_hat = {cls.intercept:.2f} + {cls.coef:.2f}x"
         predict = [
-            (cls.intercept + cls.coef*exp) for exp in x_var
+            (cls.intercept + cls.coef * exp) for exp in x_var
         ]
 
         cls.variables = {"explanatory":x_var, "response":y_var, "predict": predict}
@@ -58,8 +58,13 @@ class linear_regression:
     @classmethod
     def resid(cls, dataframe=False, squared=False):
         """
-        Generates a residual plot of fitted model.
-        :return: residual plot
+        Generates a residual plot of the fitted model
+        :param dataframe: Bool
+            If `True` then the method returns a DataFrame with the explanatory variables (actuals),
+                predictions (using the actuals) and the residuals of the variables.
+        :param squared: Bool
+            If `True` the method will return a Residual Squared Plot.
+        :return:
         """
         try:
             if squared:
