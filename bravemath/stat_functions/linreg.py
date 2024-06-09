@@ -1,3 +1,6 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 import numpy as np
 from bravemath import stat_functions
 
@@ -29,27 +32,69 @@ class linear_regression:
         cls.intercept = float(np.mean(y_var) - (cls.coef * np.mean(x_var)))
         cls.model = f"y_hat = {cls.intercept:.2f} + {cls.coef:.2f}x"
         predict = [
-            cls.intercept + cls.coef*exp for exp in x_var
-        ]
-        resid = [
-            act - pred for act in y_var for pred in predict
+            (cls.intercept + cls.coef*exp) for exp in x_var
         ]
 
-        cls.variables = {"explanatory":x_var, "response":y_var, "resid": resid}
+        cls.variables = {"explanatory":x_var, "response":y_var, "predict": predict}
         return cls
+
 
     @classmethod
     def visualize(cls):
-        """Generates a scatterplot with the linear regression line."""
+        """
+        Generates a scatterplot with the linear regression line.
+        """
         try:
-            import matplotlib.pyplot as plt
-
             plt.scatter(cls.variables['explanatory'], cls.variables['response'], alpha=0.5)
             plt.axline((0, cls.intercept), slope=cls.coef, color='green', linestyle="--")
             plt.title(f"Linear Regression Model \n{cls.model}")
             plt.axis("equal")
             plt.grid()
             return plt.show()
+
+        except AttributeError:
+            print("*****Please fit linear_regression model, then Try again!*****")
+
+    @classmethod
+    def resid(cls, dataframe=False, squared=False):
+        """
+        Generates a residual plot of fitted model.
+        :return: residual plot
+        """
+        try:
+            if squared:
+                df = pd.DataFrame({
+                    "explanatory": cls.variables['explanatory'],
+                    "predict": cls.variables['predict']
+                })
+                df['resid'] = df['explanatory'] - df['predict']
+                df['resid_squared'] = np.square(df['resid'])
+                sns.residplot(data=df, x='predict', y='resid_squared',
+                              lowess=True, line_kws=dict(color='red'))
+                plt.xlabel('Fitted Values')
+                plt.title(f"Residuals Squared versus Fitted \nResiduals Sum of Squares (RSS): {np.sum(df['resid_squared']):.3f}")
+                plt.show()
+                if dataframe:
+                    return df
+                else:
+                    pass
+
+            else:
+                df = pd.DataFrame({
+                    "explanatory":cls.variables['explanatory'],
+                    "predict":cls.variables['predict']
+                })
+                df['resid'] = df['explanatory'] - df['predict']
+                sns.residplot(data=df, x='predict', y='resid',
+                              lowess=True, line_kws=dict(color='red'))
+                plt.xlabel('Fitted Values')
+                plt.title(f"Residuals versus Fitted \nResiduals Sum: {np.sum(df['resid']):.3f}")
+                plt.show()
+                if dataframe:
+                    return df
+                else:
+                    pass
+
         except AttributeError:
             print("*****Please fit linear_regression model, then Try again!*****")
 
