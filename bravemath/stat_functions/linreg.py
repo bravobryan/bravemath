@@ -7,7 +7,8 @@ from bravemath import stat_functions
 
 class linear_regression:
     def __init__(
-            self, coef=None, intercept=None, model="linear_regression not fit.", variables={}
+            self, coef=None, intercept=None, model="linear_regression not fit.", variables={},
+            r_squared=None
     ):
         """ Instantiates the linear regression object.
         ***** Note: Please don't use this for analysis. *****
@@ -19,23 +20,37 @@ class linear_regression:
         self.intercept = intercept
         self.model = model
         self.variables = variables
+        self.r_squared = r_squared
+
+
     @classmethod
     def fit(cls, x_var, y_var):
         """
         Fits least squares linear regression model using one feature.
         :param x_var: Explanatory Variable
         :param y_var: Response Variable
-        :return: Fits linear_regression attributes to model
+        :return: Fits linear_regression attributes to model.
         """
+        # -- Calculate coefficient
         r_corr = stat_functions.correlation(x_var, y_var)
         cls.coef = float(r_corr * (np.std(y_var, ddof=1) / np.std(x_var, ddof=1)))
-        cls.intercept = float(np.mean(y_var) - (cls.coef * np.mean(x_var)))
-        cls.model = f"y_hat = {cls.intercept:.2f} + {cls.coef:.2f}x"
-        predict = [
-            (cls.intercept + cls.coef * exp) for exp in x_var
-        ]
 
-        cls.variables = {"explanatory":x_var, "response":y_var, "predict": predict}
+        # -- Calculate model's intercept
+        cls.intercept = float(np.mean(y_var) - (cls.coef * np.mean(x_var)))
+
+        # -- model equation
+        cls.model = f"y_hat = {cls.intercept:.2f} + {cls.coef:.2f}x"
+        y_pred = [cls.intercept + (cls.coef * x) for x in x_var]
+
+        # -- Calculate r_squared value - Coeffecient of Determination
+        values = np.column_stack((y_var, y_pred))
+        y_mean = np.mean(values[0])
+        sqr_error_ypred = np.sum(np.square([row[0] - row[1] for row in values]))
+        sqr_error_ymean = np.sum(np.square([row[0] - y_mean for row in values]))
+        r_sqr = 1 - (sqr_error_ypred / sqr_error_ymean)
+        cls.r_squared = r_sqr
+
+        cls.variables = {"explanatory":x_var, "response":y_var, "y_pred": y_pred}
         return cls
 
 
@@ -53,55 +68,7 @@ class linear_regression:
             return plt.show()
 
         except AttributeError:
-            print("*****Please fit linear_regression model, then Try again!*****")
-
-    @classmethod
-    def resid(cls, dataframe=False, squared=False):
-        """
-        Generates a residual plot of the fitted model
-        :param dataframe: Bool
-            If `True` then the method returns a DataFrame with the explanatory variables (actuals),
-                predictions (using the actuals) and the residuals of the variables.
-        :param squared: Bool
-            If `True` the method will return a Residual Squared Plot.
-        :return:
-        """
-        try:
-            if squared:
-                df = pd.DataFrame({
-                    "explanatory": cls.variables['explanatory'],
-                    "predict": cls.variables['predict']
-                })
-                df['resid'] = df['explanatory'] - df['predict']
-                df['resid_squared'] = np.square(df['resid'])
-                sns.residplot(data=df, x='predict', y='resid_squared',
-                              lowess=True, line_kws=dict(color='red'))
-                plt.xlabel('Fitted Values')
-                plt.title(f"Residuals Squared versus Fitted \nResiduals Sum of Squares (RSS): {np.sum(df['resid_squared']):.3f}")
-                plt.show()
-                if dataframe:
-                    return df
-                else:
-                    pass
-
-            else:
-                df = pd.DataFrame({
-                    "explanatory":cls.variables['explanatory'],
-                    "predict":cls.variables['predict']
-                })
-                df['resid'] = df['explanatory'] - df['predict']
-                sns.residplot(data=df, x='predict', y='resid',
-                              lowess=True, line_kws=dict(color='red'))
-                plt.xlabel('Fitted Values')
-                plt.title(f"Residuals versus Fitted \nResiduals Sum: {np.sum(df['resid']):.3f}")
-                plt.show()
-                if dataframe:
-                    return df
-                else:
-                    pass
-
-        except AttributeError:
-            print("*****Please fit linear_regression model, then Try again!*****")
+            print("***** Please fit linear_regression model, then Try again! *****")
 
 
 if __name__ == '__main__':
@@ -118,6 +85,9 @@ if __name__ == '__main__':
     sklinreg = LinearRegression().fit(x, y)
     print(f"My regression model:            {mylinreg.model}")
     print(f"Sklearn's regression model:     y_hat = {sklinreg.intercept_:.2f} + {sklinreg.coef_[0]:.2f}x")
+
+    # Test r_squared
+    print(f"Coefficient of Determination: {mylinreg.r_squared:.3f} r^2")
 
     # Test `.viszualize()` method.
     mylinreg.visualize()

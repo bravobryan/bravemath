@@ -7,4 +7,4 @@ x, y = np.random.default_rng().multivariate_normal(
     500).T
 
 linreg = linear_regression().fit(x, y)
-linreg.visualize()
+print(linreg.r_squared)
