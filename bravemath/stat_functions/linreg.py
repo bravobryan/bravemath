@@ -55,6 +55,16 @@ class linear_regression:
 
 
     @classmethod
+    def prediction(cls, x_var):
+        """
+        calculates predictions using fitted model.
+        :param x_var: Explanatory Variable, 1-D array or list
+        :return: Numpy array of Prediction values
+        """
+        y_pred = np.array([cls.intercept + (cls.coef * x) for x in x_var])
+        return y_pred
+
+    @classmethod
     def visualize(cls):
         """
         Generates a scatterplot with the linear regression line.
@@ -69,6 +79,7 @@ class linear_regression:
 
         except AttributeError:
             print("***** Please fit linear_regression model, then Try again! *****")
+
 
 
 if __name__ == '__main__':
