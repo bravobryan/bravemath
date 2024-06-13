@@ -65,7 +65,7 @@ class linear_regression:
         return y_pred
 
     @classmethod
-    def visualize(cls):
+    def visualize(cls, scale='auto'):
         """
         Generates a scatterplot with the linear regression line.
         """
@@ -73,7 +73,7 @@ class linear_regression:
             plt.scatter(cls.variables['explanatory'], cls.variables['response'], alpha=0.5)
             plt.axline((0, cls.intercept), slope=cls.coef, color='green', linestyle="--")
             plt.title(f"Linear Regression Model \n{cls.model}")
-            plt.axis("equal")
+            plt.axis(scale)
             plt.grid()
             return plt.show()
 
