@@ -4,6 +4,8 @@ Additionally, I'm putting into practice my Python Programming skills by creating
 
 Over time I hope to create many projects that can help earn my way into a PhD in the field of Physics.
 ## Current challenges:
+- Create a python plotting function that allows me to plot realnumbers represented in a line.
+
 - Gaining enough knowledge to understand what I want to focus in PhD.
 - Creating projects in Python and in other programs in an attempt to create physics simulations and adding it to my online portfolio.
 
