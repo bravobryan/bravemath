@@ -18,5 +18,5 @@ df2['char_num'] = df['char_col'].str.extract('(\d+)').astype(int)
 df2['int_num'] = df['int_col'].str.strip().astype(int)
 df2['letter'] = df['random_int'].replace({1: 'A', 2: 'B', 3: 'C', 4: 'D'})
 
-df.to_csv('test.csv', index=False)
-df2.to_csv('test2.csv', index=False)
+# df.to_csv('test.csv', index=False)
+# df2.to_csv('test2.csv', index=False)
