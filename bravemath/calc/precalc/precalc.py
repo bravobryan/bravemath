@@ -37,6 +37,7 @@ def plot_real_numbers(values, selection):
 
     plt.show()
 
+##### Example usage: ######
 if __name__ == '__main__':
     values = np.random.randint(-25, 25, size=10)
     selection = np.random.choice(values, size=2, replace=False)
