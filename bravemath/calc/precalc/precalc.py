@@ -4,6 +4,7 @@ import pandas as pd
 
 def plot_real_numbers(values, selection):
     """
+    Side note: This function is incomplete and needs to be updated to represent standard notations for intervals.
     Plot a horizontal line with selected values and their distance.
     Parameters:
     - values: A list or array of real numbers.
@@ -13,7 +14,6 @@ def plot_real_numbers(values, selection):
     """
     if len(selection) != 2:
         raise ValueError("Selection must contain exactly two values.")
-
 
     mid_selection = np.mean(selection)
     range_values = [*range(np.min(values), np.max(values)+1, 1)]

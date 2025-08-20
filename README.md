@@ -1,5 +1,5 @@
 # bravemath
-Personal side project of code functions in an attempt to solidify my understanding on the subjects related to math, statistics, physics, and chemistry.
+Personal side project of code functions in an attempt to solidify my understanding on the subjects related to math, statistics, and physics.
 Additionally, I'm putting into practice my Python Programming skills by creating different modules of code by creating Object classes and methods.
 
 Over time I hope to create many projects that can help earn my way into a PhD in the field of Physics.
