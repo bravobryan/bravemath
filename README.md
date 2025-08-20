@@ -11,7 +11,7 @@ Over time I hope to create many projects that can help earn my way into a PhD in
 - Eventually: Talk to a University on steps I can take and what more is needed to become a PhD student.
 #### Code Visualizations:
 Create a set of programs not constrained to Python, but eventually C++, etc... where I can create computational physics simulations.
-- **Done**: Create a python plotting function that allows me to plot realnumbers represented in a line.
+- **In Progress**: Create a python plotting function that allows me to plot realnumbers represented in a line.
     - Needs to be updated to represent standard notations for intervals. Such as `(a, b) or (a, b] or [a, b]`.
 
 ### Potential Area of Focus:
