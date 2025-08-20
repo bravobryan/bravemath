@@ -2,18 +2,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-def plot_real_numbers(values, selection):
+def plot_real_numbers(selection):
     """
-    Side note: This function is incomplete and needs to be updated to represent standard notations for intervals.
     Plot a horizontal line with selected values and their distance.
     Parameters:
-    - values: A list or array of real numbers.
-    - selection: A list or array containing exactly two values from `values`.   
-    Raises:
-    - ValueError: If `selection` does not contain exactly two values or if `values` contains non-numeric types.
+    - selection: A list or array of two real numbers representing the interval.
+    This function will plot the interval and annotate the midpoint, radius, and distance between the two values.
+    It will also plot the range of values between the two selected numbers.
     """
     if len(selection) != 2:
         raise ValueError("Selection must contain exactly two values.")
+    values = np.array(selection)
 
     mid_selection = np.mean(selection)
     range_values = [*range(np.min(values), np.max(values)+1, 1)]
@@ -35,11 +34,21 @@ def plot_real_numbers(values, selection):
     ax.set_ylim(-1, 2)
     ax.set_yticklabels([])
 
+    # Plot the midpoint
+    ax.annotate(f'Midpoint: {mid_selection}', (mid_selection, 1), textcoords="offset points", xytext=(0,25), ha='center', color='Blue')
+    ax.plot([mid_selection], [1], marker='o', markersize=10, color='Blue')
+
+    # Plot the radius
+    ax.annotate(f'Radius: {np.abs(selection[1]-selection[0])/2}', (mid_selection, 1), textcoords="offset points", xytext=(0,-15), ha='center', color='Green')
+    ax.plot([mid_selection - np.abs(selection[1]-selection[0])/2, mid_selection + np.abs(selection[1]-selection[0])/2], [1, 1], linestyle='--', color='Green')
+
+    # Add the title and labels
+    ax.set_title(f'Defining [{selection[0]}, {selection[1]}] as an interval')
+
     plt.show()
 
 ##### Example usage: ######
 if __name__ == '__main__':
-    values = np.random.randint(-25, 25, size=10)
-    selection = np.random.choice(values, size=2, replace=False)
+    values = np.random.randint(-25, 25, size=2)
 
-    plot_real_numbers(values, selection)
+    plot_real_numbers(values)
