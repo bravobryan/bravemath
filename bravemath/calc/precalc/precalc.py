@@ -9,6 +9,10 @@ def plot_real_numbers(selection):
     - selection: A list or array of two real numbers representing the interval.
     This function will plot the interval and annotate the midpoint, radius, and distance between the two values.
     It will also plot the range of values between the two selected numbers.
+    
+    Updated: 
+        - 2025-08-20: Created the function.
+    
     """
     if len(selection) != 2:
         raise ValueError("Selection must contain exactly two values.")
