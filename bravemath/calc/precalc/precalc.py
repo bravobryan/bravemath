@@ -4,55 +4,75 @@ import pandas as pd
 
 def plot_real_numbers(selection):
     """
-    Plot a horizontal line with selected values and their distance.
-    Parameters:
-    - selection: A list or array of two real numbers representing the interval.
-    This function will plot the interval and annotate the midpoint, radius, and distance between the two values.
-    It will also plot the range of values between the two selected numbers.
-    
-    Updated: 
-        - 2025-08-20: Created the function.
-    
+    Create a simple template for plotting real numbers on a horizontal line.
+    :param selection: A list or array of two real numbers representing the interval.
+    :raises ValueError: If the selection does not contain exactly two values.
+    :return: fig, ax - Matplotlib figure and axis objects.
+
+    Example usage:
+    >>> selection = [9, 15]
+    >>> fig, ax = plot_real_numbers(selection)
+    >>> ax.plot(selection[0], [0], marker='o', markersize=20, color='green')
+    >>> ax.plot(selection[1], [0], marker='>', markersize=20, color='green')
+    >>> ax.plot(selection, [0]*len(selection), marker=None, color='green',  linewidth=5)
+    >>> ax.set_title(f'Representing [{selection[0]}, ∞)')
+    >>> plt.show()
+
+
+    #### Created on 2025-08-22 by BravoBryan
     """
     if len(selection) != 2:
-        raise ValueError("Selection must contain exactly two values.")
-    values = np.array(selection)
+            raise ValueError("Selection must contain exactly two values.")
+    values = np.sort(np.array(selection))
 
-    mid_selection = np.mean(selection)
-    range_values = [*range(np.min(values), np.max(values)+1, 1)]
+    range_values = [*range(int(np.min(values)-np.abs(np.mean(values)*0.50)), int(np.max(values)+np.abs(np.mean(values)*0.50)))]
 
     fig, ax = plt.subplots(figsize=(10, 2))
 
-    # Annotate each value on the x-axis
-    for i, value in enumerate(values):
-        ax.annotate(str(value), (value, 0), textcoords="offset points", xytext=(0,10), ha='center')
+    ax.plot(range_values, [0] * len(range_values), linestyle="", marker='|', markersize=10, color='black')
 
-    ax.plot(values, [0] * len(values), linestyle='-', marker='o', markersize=10, color='Red')
-    ax.plot(range_values, [0] * len(range_values), linestyle=None, marker='|', markersize=10, color='Black')
+    ax.plot(range_values, [0] * len(range_values), linestyle=None, color='black')
 
-    ax.annotate(f"{selection[0]}", (selection[0], 1), textcoords="offset points", xytext=(0,10), ha='center', color='Black')
-    ax.annotate(f"{selection[1]}", (selection[1], 1), textcoords="offset points", xytext=(0,10), ha='center', color='Black')
-    ax.annotate(f'Distance: {np.abs(selection[1]-selection[0])}', (mid_selection, 1), textcoords="offset points", xytext=(0,15), ha='center', color='Black')
-    ax.plot(selection, [1] * len(selection), linestyle='-', marker='|', markersize=10, color='Black')
-
-    ax.set_ylim(-1, 2)
+    ax.set_ylim(-1, 1)
     ax.set_yticklabels([])
+    # plt.show()
+    return fig, ax
 
-    # Plot the midpoint
-    ax.annotate(f'Midpoint: {mid_selection}', (mid_selection, 1), textcoords="offset points", xytext=(0,25), ha='center', color='Blue')
-    ax.plot([mid_selection], [1], marker='o', markersize=10, color='Blue')
+# Example use case
+if __name__ == "__main__":
+    selection = [9, 15]
 
-    # Plot the radius
-    ax.annotate(f'Radius: {np.abs(selection[1]-selection[0])/2}', (mid_selection, 1), textcoords="offset points", xytext=(0,-15), ha='center', color='Green')
-    ax.plot([mid_selection - np.abs(selection[1]-selection[0])/2, mid_selection + np.abs(selection[1]-selection[0])/2], [1, 1], linestyle='--', color='Green')
+    ## Representing [a, infinity)
+    selection = np.sort(np.array(selection))  # Seletion needs to be sorted and have two values.
+    fig, ax = plot_real_numbers(selection)
+    ax.plot(selection[0], [0], marker='o', markersize=20, color='green')
+    ax.plot(selection[1], [0], marker='>', markersize=20, color='green')
+    ax.plot(selection, [0]*len(selection), marker=None, color='green', linewidth=5)
+    ax.set_title(f'Representing [{selection[0]}, ∞)')
+    plt.show()
 
-    # Add the title and labels
-    ax.set_title(f'Defining [{selection[0]}, {selection[1]}] as an interval')
+    ## Representing (-infinity, b)
+    selection = np.sort(np.array(selection))  # Seletion needs to be sorted and have two values.
+    fig, ax = plot_real_numbers(selection)
+    ax.plot(selection[1], [0], marker='o', markersize=20, color='green', markerfacecolor='none')
+    ax.plot(selection[0], [0], marker='<', markersize=20, color='green')
+    ax.plot(selection, [0]*len(selection), marker=None, color='green', linewidth=5)
+    ax.set_title(f'Representing (-∞, {selection[1]}]')
 
     plt.show()
 
-##### Example usage: ######
-if __name__ == '__main__':
-    values = np.random.randint(-25, 25, size=2)
-
-    plot_real_numbers(values)
+    ## Representing (-infinity, a] U [b, infinity)
+    selection = np.sort(np.array(selection))  # Seletion needs to be sorted and have two values.
+    fig, ax = plot_real_numbers(selection)
+    # Negative infinity side.
+    ax.plot(selection[0], [0], marker='o', markersize=20, color='green')
+    ax.plot(selection[0]-(np.abs(np.mean(selection)*0.35)), [0], marker='<', markersize=20, color='green', markerfacecolor='none')
+    ax.plot([*range(int(selection[0]-(np.abs(np.mean(selection)*0.35))),
+                    selection[0]+1)], [0]*len([*range(int(selection[0]-(np.abs(np.mean(selection)*0.35))), selection[0]+1)]), marker=None, color='green', linewidth=5)
+    # Positive infinity side.
+    ax.plot(selection[1], [0], marker='o', markersize=20, color='green')
+    ax.plot(selection[1]+(np.abs(np.mean(selection)*0.35)), [0], marker='>', markersize=20, color='green', markerfacecolor='none')
+    ax.plot([*range(selection[1], int(selection[1]+(np.abs(np.mean(selection)*0.35))+1))],
+            [0]*len([*range(selection[1], int(selection[1]+(np.abs(np.mean(selection)*0.35))+1))]), marker=None, color='green', linewidth=5)
+    ax.set_title(f'Representing (-∞, {selection[0]}] U [{selection[1]}, ∞)')
+    plt.show()
