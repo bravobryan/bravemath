@@ -11,8 +11,7 @@ Over time I hope to create many projects that can help earn my way into a PhD in
 - Eventually: Talk to a University on steps I can take and what more is needed to become a PhD student.
 #### Code Visualizations:
 Create a set of programs not constrained to Python, but eventually C++, etc... where I can create computational physics simulations.
-- **In Progress**: Create a python plotting function that allows me to plot realnumbers represented in a line.
-    - Needs to be updated to represent standard notations for intervals. Such as `(a, b) or (a, b] or [a, b]`.
+
 
 ### Potential Area of Focus:
 This list is not absolute and I hope to reduce it to one area to focus. 
@@ -26,3 +25,6 @@ This list is not absolute and I hope to reduce it to one area to focus.
 - Calculus: Jon Rogawski
     - Precalculus Review
 - Classical Mechanics: John R. Taylor
+
+##### Exercises from Textbooks are encrypted and password protected.
+- This is done to protect academic integrity.
