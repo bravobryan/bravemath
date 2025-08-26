@@ -2,13 +2,14 @@
 Personal side project of code functions in an attempt to solidify my understanding on the subjects related to math, statistics, and physics.
 Additionally, I'm putting into practice my Python Programming skills by creating different modules of code by creating Object classes and methods.
 
-Over time I hope to create many projects that can help earn my way into a PhD in the field of Physics.
+Over time I hope to create many projects that can help earn my way into a PhD in the field of Physics and/or secure a career path that fits a passion in Physics.
 ## Current challenges:
-
 - Gaining enough knowledge to understand what I want to focus in PhD.
 - Creating projects in Python and in other programs in an attempt to create physics simulations and adding it to my online portfolio.
 
-- Eventually: Talk to a University on steps I can take and what more is needed to become a PhD student.
+- Eventually: 
+    - Attend events, seminars, or groups related to Physics.
+    - Talk to a University on steps I can take and what more is needed to become a PhD student.
 #### Code Visualizations:
 Create a set of programs not constrained to Python, but eventually C++, etc... where I can create computational physics simulations.
 
@@ -22,6 +23,7 @@ This list is not absolute and I hope to reduce it to one area to focus.
 - Environmental Physics
 
 # Current Subjects of Personal Study:
+An attempt to study enough in Physics to reach a similar level of knowledge as a BS in Physics.
 - Calculus: Jon Rogawski
     - Precalculus Review
 - Classical Mechanics: John R. Taylor
