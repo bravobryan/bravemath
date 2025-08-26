@@ -29,4 +29,4 @@ An attempt to study enough in Physics to reach a similar level of knowledge as a
 - Classical Mechanics: John R. Taylor
 
 ##### Exercises from Textbooks are encrypted and password protected.
-- This is done to protect academic integrity.
+This is done to protect academic integrity.
