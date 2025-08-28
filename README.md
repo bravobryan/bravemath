@@ -25,8 +25,9 @@ This list is not absolute and I hope to reduce it to one area to focus.
 # Current Subjects of Personal Study:
 An attempt to study enough in Physics to reach a similar level of knowledge as a BS in Physics.
 - Calculus: Jon Rogawski
-    - Precalculus Review
+    - 1.2 Linear and Quadratic Equations
 - Classical Mechanics: John R. Taylor
+    - Section 1.2 Space and Time
 
 ##### Exercises from Textbooks are encrypted and password protected.
 This is done to protect academic integrity.
